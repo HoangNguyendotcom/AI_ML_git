@@ -1,4 +1,6 @@
 import numpy as np
+import string
+import re
 
 # Ex1: Write a NumPy program to reverse an array (first element becomes last).
 # Input: [12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37]
@@ -54,22 +56,32 @@ def ex3(arr: list) -> list:
 # dog: 440
 # people: 312
 # ...
-file = "AI_ML_git/Exercise_2/story.txt"
+#file = "AI_ML_git/Exercise_2/story.txt"
+file = "story.txt"
+def removing_punctuation(word: str):
+    word = word.lower()
+    chars = set(string.punctuation)
+    removed_word = word.strip(''.join(chars))
+
+    return  removed_word
 def ex4(txtfile: str):
     with open(txtfile, "r", encoding ="utf-8-sig") as file:
-        words = file.read().split()
+        words = file.read()
+        words = re.split(r'\s|·', words)
+        
         count = {}
         for word in words:
-            word = word.lower()
-            if word not in count:
-                count[word] = 1
-            else: count[word] += 1
-        sorted_count = sorted(count.items(), key = lambda x: x[1], reverse=True)
+            word = removing_punctuation(word)
+            if word:
+                if word not in count:
+                    count[word] = 1
+                else: count[word] += 1
+    count = sorted(count.items(), key=lambda item: item[1], reverse=True)
 
-        top100 = sorted_count[:10]
-        print(top100)
+    # Print the first 100 key-value pairs
+    for key, value in count[:100]:
+        print(f"{key}: {value}")
         
-
 def main():
     while True:
         ex = input("Which exercise do you want to run? ")
