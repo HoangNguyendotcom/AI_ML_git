@@ -66,16 +66,20 @@ def removing_punctuation(word: str):
     return  removed_word
 def ex4(txtfile: str):
     with open(txtfile, "r", encoding ="utf-8-sig") as file:
-        words = file.read()
-        words = re.split(r'\s|·', words)
+        content = file.read()
+        # Split content into words, with the token space or "·":
+        words = re.split(r'\s|·', content)
         
         count = {}
         for word in words:
+            # Remove the punctuations:
             word = removing_punctuation(word)
+            #If word is not empty, add it into dict and count
             if word:
                 if word not in count:
                     count[word] = 1
                 else: count[word] += 1
+    #Sorted by value and print top 100:
     count = sorted(count.items(), key=lambda item: item[1], reverse=True)
 
     # Print the first 100 key-value pairs
