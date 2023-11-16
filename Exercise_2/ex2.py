@@ -54,16 +54,20 @@ def ex3(arr: list) -> list:
 # dog: 440
 # people: 312
 # ...
-file = "Exercise_2/story.txt"
+file = "AI_ML_git/Exercise_2/story.txt"
 def ex4(txtfile: str):
-    with open(txtfile, "r") as file:
+    with open(txtfile, "r", encoding ="utf-8-sig") as file:
         words = file.read().split()
-        count = []
-        for word in words.lower:
+        count = {}
+        for word in words:
             word = word.lower()
             if word not in count:
                 count[word] = 1
             else: count[word] += 1
+        sorted_count = sorted(count.items(), key = lambda x: x[1], reverse=True)
+
+        top100 = sorted_count[:10]
+        print(top100)
         
 
 def main():
