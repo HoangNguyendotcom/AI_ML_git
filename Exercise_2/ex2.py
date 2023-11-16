@@ -58,27 +58,22 @@ def ex3(arr: list) -> list:
 # ...
 #file = "AI_ML_git/Exercise_2/story.txt"
 file = "story.txt"
-def removing_punctuation(word: str):
-    word = word.lower()
-    chars = set(string.punctuation)
-    removed_word = word.strip(''.join(chars))
 
-    return  removed_word
 def ex4(txtfile: str):
     with open(txtfile, "r", encoding ="utf-8-sig") as file:
         content = file.read()
-        # Split content into words, with the token space or "·":
-        words = re.split(r'\s|·', content)
-        
+        # Split content into words, with the token space or any punctuation:
+        words = re.split(r'[{}|\s]+'.format(re.escape(string.punctuation)), content)
+
         count = {}
         for word in words:
-            # Remove the punctuations:
-            word = removing_punctuation(word)
+            word = word.lower()
             #If word is not empty, add it into dict and count
             if word:
                 if word not in count:
                     count[word] = 1
                 else: count[word] += 1
+
     #Sorted by value and print top 100:
     count = sorted(count.items(), key=lambda item: item[1], reverse=True)
 
