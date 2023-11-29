@@ -155,12 +155,11 @@ def ex_8(txtfile) -> list:
         words = file.read().split()
         lookup = {}
         for word in words:
-            if len(word) < 3:
-              continue
-            key = word[:2] + word[-2:]
-            if key not in lookup: # Save the wordsEn as dict{}, grouped by the first 2 letters and the last 2 letters
-                lookup[key] = [word]
-            else: lookup[key].append(word) 
+            if len(word) >= 3:
+                key = word[:2] + word[-2:]
+                if key not in lookup: # Save the wordsEn as dict{}, grouped by the first 2 letters and the last 2 letters
+                    lookup[key] = [word]
+                else: lookup[key].append(word) 
 
     # Prompt the user for inputing the start word and goal word:
     # Just in case User prompt the Uppercase or space in the front and in the end.
@@ -175,7 +174,7 @@ def ex_8(txtfile) -> list:
             print("Please try again")
         else: break
         
-    # Limit the nodes are less than 12:
+    # Limit the nodes are less than 10:
     for i in range(10):
         visit = []
         shortest = []
