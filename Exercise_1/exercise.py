@@ -5,6 +5,7 @@ data1 = [-10, -21, -4, -45, -66, 93, 11, -4, -6, 12, 11, 4]
 def ex_1(data: list[int]) -> list:
     pos = []
     neg = []
+    # Can use the list comprehension (optional)
     for num in data:
         if num > 0:
             pos.append(num)
