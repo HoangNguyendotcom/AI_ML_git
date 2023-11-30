@@ -1,12 +1,13 @@
 import pandas as pd
 import numpy as np
 from ydata_profiling import ProfileReport
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
+from lazypredict.Supervised import LazyClassifier
 
 data = pd.read_csv("data/diabetes.csv")
 #profile = ProfileReport(data, title = "My Report")
@@ -71,7 +72,7 @@ precision    recall  f1-score   support
    macro avg       0.73      0.71      0.72       154
 weighted avg       0.76      0.77      0.76       154
 '''
-
+'''
 #Using Random Forrest:
 model = RandomForestClassifier()
 model.fit(x_train, y_train)
@@ -86,3 +87,34 @@ precision    recall  f1-score   support
     accuracy                           0.73       154
    macro avg       0.68      0.69      0.69       154
 weighted avg       0.73      0.73      0.73       154
+'''
+'''
+# Find the best Hype parameter for the Random Forest Classifier:
+params ={
+    "n_estimators": [50, 100, 200],
+    "criterion": ["gini", "entropy", "log_loss"]
+}
+grid_search = GridSearchCV(
+    estimator= RandomForestClassifier(),
+    param_grid= params,
+    scoring= "recall",
+    cv=6,
+    n_jobs=6,
+    verbose=2
+)
+grid_search.fit(x_train, y_train)
+
+print(grid_search.best_estimator_)
+print(grid_search.best_score_)
+print(grid_search.best_params_)
+
+y_predict = grid_search.predict(x_test)
+print(classification_report(y_test, y_predict))
+'''
+
+'''
+clf = LazyClassifier(verbose=0, ignore_warnings=True, custom_metric=None)
+models, predictions = clf.fit(x_train, x_test, y_train, y_test)
+print(models)
+'''
+
