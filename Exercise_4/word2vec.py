@@ -2,7 +2,7 @@ import gensim.downloader as api
 import numpy as np
 
 # 25, 50, 100 or 200. Số càng lớn thì càng chính xác, nhưng chạy càng lâu các bạn nhé
-model = api.load("glove-twitter-200")
+model = api.load("glove-twitter-25")
 # 25 ~ Runtime: 30s
 # 50 ~ Runtime: 1m
 # 100 ~ Runtime: 2m
