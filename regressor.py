@@ -87,3 +87,5 @@ y_predict = model.predict(x_test)
 
 for i, j in zip(y_predict, y_test):
     print("Prediction: {}. Actual: {} ".format(i,j))
+
+# The most popular metric for evaluating a regression model: R2_score
